@@ -10,11 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'To-do App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Add a To-do'),
     );
   }
 }
@@ -44,23 +45,34 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          color: Colors.deepOrange,
+          child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            Container(
+
+              color: Colors.white,
+              height: 400,
+              width: double.infinity,
+              margin: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
+              child: ListView(
+                children: List.generate(3,(index)=>Column(
+                  children: [
+                    Text("data ${index + 1}"),
+                    SizedBox(height: 10), // 10 পিক্সেল গ্যাপ
+                  ],
+                ))
+              ),
+            )
+
           ],
         ),
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+
     );
   }
 }
