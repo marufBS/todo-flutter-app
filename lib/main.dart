@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart'; //
 
 void main() {
   runApp(const MyApp());
@@ -34,25 +36,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   TextEditingController taskController = TextEditingController();
 
-  var tasks = [
-    {
-      "id":1,
-      "text":"Task 1"
-    },{
-      "id":2,
-      "text":"Task 2"
-    },
-  ];
-  
-  _addTask(){
-    setState(() {
-      tasks.add({
-        'id':tasks.length+1,
-        'text':taskController.text
-      });
-    });
+  var tasks = [];
 
-    taskController.clear();
+  _addTask(){
+  String taskText = taskController.text.trim();
+    if(taskText.isNotEmpty) {
+      setState(() {
+        tasks.add({
+          'id': tasks.length + 1,
+          'text': taskController.text
+        });
+      });
+
+      taskController.clear();
+    }
   }
 
   void _incrementCounter() {
@@ -65,8 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        toolbarHeight: 90,
+        backgroundColor: Color(0xFF280003),
+        title: Text(widget.title,style: GoogleFonts.roboto(color: Colors.white,fontSize: 30),),
       ),
       body: SafeArea(
         child: Container(
@@ -76,8 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              color: Colors.white,
-              height: 550,
+              // color: Colors.white,
+              height: 450,
               width: double.infinity,
               margin: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
               child: ListView(
@@ -88,11 +86,24 @@ class _MyHomePageState extends State<MyHomePage> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: 10,),
                         Container(
-
-                          color: Colors.grey,
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12), // Rounded corners
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2), // Shadow color
+                                spreadRadius: 1,  // Spread radius
+                                blurRadius: 3,    // Blur effect
+                                offset: Offset(0, 3), // Shadow position (x, y)
+                              ),
+                            ],
+                          ),
+                          // color: Colors.grey,
                           width: double.infinity,
-                          padding: EdgeInsets.all(5.0),
+                          // padding: EdgeInsets.all(5.0),
                           child: Text(
                             task['text'].toString(),
                             style: TextStyle(
@@ -113,10 +124,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Positioned(
                     bottom:0,
-                    left: 0,
-                    right: 0,
+                    left: 4,
+                    right: 4,
                     child: Container(
-                      color: Colors.grey,
+                      // color: Colors.grey,
                       height: 100,
                       width: double.infinity,
                       child: Row(
