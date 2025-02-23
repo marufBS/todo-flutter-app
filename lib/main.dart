@@ -32,6 +32,29 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 2;
 
+  TextEditingController taskController = TextEditingController();
+
+  var tasks = [
+    {
+      "id":1,
+      "text":"Task 1"
+    },{
+      "id":2,
+      "text":"Task 2"
+    },
+  ];
+  
+  _addTask(){
+    setState(() {
+      tasks.add({
+        'id':tasks.length+1,
+        'text':taskController.text
+      });
+    });
+
+    taskController.clear();
+  }
+
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -58,18 +81,31 @@ class _MyHomePageState extends State<MyHomePage> {
               width: double.infinity,
               margin: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
               child: ListView(
-                children: List.generate(_counter,(index)=>Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      color: Colors.grey,
-                      width: double.infinity,
-                      padding: EdgeInsets.all(5.0),
-                      child: Text("data ${index + 1}",style: TextStyle(backgroundColor: Colors.cyanAccent,color: Colors.black,fontSize: 25),),
-                    ),
-                    SizedBox(height: 10), // 10 পিক্সেল গ্যাপ
-                  ],
-                )).reversed.toList()
+                children: List.generate(
+                  tasks.reversed.toList().length,
+                    (index){
+                    var task = tasks.reversed.toList()[index];
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+
+                          color: Colors.grey,
+                          width: double.infinity,
+                          padding: EdgeInsets.all(5.0),
+                          child: Text(
+                            task['text'].toString(),
+                            style: TextStyle(
+                                // backgroundColor: Colors.cyanAccent,
+                                color: Colors.black,fontSize: 25),
+                          ),
+                        ),
+                        SizedBox(height: 10), // 10 পিক্সেল গ্যাপ
+                      ],
+                    );
+                    }
+
+                ),
               ),
             ),
             Expanded(
@@ -87,6 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           Expanded(
                             child: TextField(
+                              controller: taskController,
                               decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.only(left: 30.0,top: 15.0,bottom: 15.0),
                                   border: OutlineInputBorder(
@@ -113,11 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 shape: const StadiumBorder(),
                                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12), // Adjust padding
                               ),
-                              onPressed: (){
-                                setState(() {
-                                  _counter++;
-                                });
-                              },
+                              onPressed: _addTask,
                               child: Icon(Icons.add,size: 30,)
                           )
                         ],
