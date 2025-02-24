@@ -61,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         toolbarHeight: 90,
         backgroundColor: Color(0xFF280003),
@@ -71,11 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
           width: double.infinity,
           color: Colors.deepOrange,
           child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
               // color: Colors.white,
-              height: 450,
+              // height: 350,
               width: double.infinity,
               margin: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
               child: ListView(
@@ -119,54 +119,41 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            Expanded(
-              child: Stack(
+            Padding(
+              padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+              child: Row(
                 children: [
-                  Positioned(
-                    bottom:0,
-                    left: 4,
-                    right: 4,
-                    child: Container(
-                      // color: Colors.grey,
-                      height: 100,
-                      width: double.infinity,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              controller: taskController,
-                              decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.only(left: 30.0,top: 15.0,bottom: 15.0),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(30.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white),
-                                      borderRadius: BorderRadius.circular(30.0)
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white),
-                                      borderRadius: BorderRadius.circular(30.0)
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintText: 'Enter a task'
-                              ),
-                            ),
+                  Expanded(
+                    child: TextField(
+                      controller: taskController,
+                      decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(left: 30.0,top: 15.0,bottom: 15.0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
-                          SizedBox(width: 5,),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: const StadiumBorder(),
-                                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12), // Adjust padding
-                              ),
-                              onPressed: _addTask,
-                              child: Icon(Icons.add,size: 30,)
-                          )
-                        ],
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(30.0)
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(30.0)
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: 'Enter a task'
                       ),
                     ),
+                  ),
+                  SizedBox(width: 5,),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: const StadiumBorder(),
+                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12), // Adjust padding
+                      ),
+                      onPressed: _addTask,
+                      child: Icon(Icons.add,size: 30,)
                   )
                 ],
               ),
